@@ -1,4 +1,5 @@
-﻿using CashFlow.Communication.Requests;
+﻿using CashFlow.Application.UseCases.Expanses;
+using CashFlow.Communication.Requests;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CashFlow.Api.Controllers;
@@ -10,6 +11,8 @@ public class ExpansesController : ControllerBase
     [HttpPost]
     public IActionResult Register([FromBody] RegisterExpanseRequest request)
     {
-        return Created();
+        var useCase = new RegisterExpanseUseCase();
+        var response = useCase.Handle(request);
+        return Created(string.Empty, response);
     }
 }
